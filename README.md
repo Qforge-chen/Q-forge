@@ -119,4 +119,14 @@ Apache License 2.0 — See [LICENSE](LICENSE) for details.
 
 ---
 
+## ⚠️ Disclaimer
+
+Q-Forge is a **personal project** developed by Chen Zhongshun during **personal time** (weekends and evenings).
+
+- No proprietary data, code, or resources from any employer were used in the development of this project.
+- All domain knowledge represented here is derived from publicly available standards and the author's personal experience accumulated over 20 years.
+- This project is released under the Apache 2.0 License for educational and community purposes.
+
+---
+
 *Q-Forge: The Local AI Auditor for Manufacturing.*
