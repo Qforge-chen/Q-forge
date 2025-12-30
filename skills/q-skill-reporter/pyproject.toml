@@ -1,0 +1,15 @@
+[project]
+name = "q-skill-reporter"
+version = "0.1.0"
+description = "Q-Forge Report Generator - Convert Markdown to Professional HTML"
+dependencies = [
+    "mcp>=0.1.0",
+    "markdown>=3.5"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+q-skill-reporter = "q_skill_reporter:main"

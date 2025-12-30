@@ -1,0 +1,14 @@
+{
+  "EXAMPLE_CASE_001": {
+    "symptom": "Description of the observed symptom or failure mode",
+    "root_cause": "Identified root cause after investigation",
+    "solution": "Recommended corrective and preventive actions",
+    "timestamp": "2025-01-01T00:00:00"
+  },
+  "EXAMPLE_CASE_002": {
+    "symptom": "Another example symptom description",
+    "root_cause": "Root cause analysis result",
+    "solution": "Action plan and verification steps",
+    "timestamp": "2025-01-01T00:00:00"
+  }
+}

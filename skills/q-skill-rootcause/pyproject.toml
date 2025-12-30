@@ -1,0 +1,14 @@
+[project]
+name = "q-skill-rootcause"
+version = "0.1.0"
+description = "Q-Forge Root Cause Analysis Skill - Interactive Detective Agent"
+dependencies = [
+    "mcp>=0.1.0"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+q-skill-rootcause = "q_skill_rootcause:main"

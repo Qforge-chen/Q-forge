@@ -1,0 +1,20 @@
+[project]
+name = "q-skill-8d"
+version = "0.1.0"
+description = "Q-Forge 8D Report Review MCP Skill Package"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.0.0",
+    "python-docx>=1.1.0",
+]
+
+[project.scripts]
+q-skill-8d = "q_skill_8d:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/q_skill_8d"]

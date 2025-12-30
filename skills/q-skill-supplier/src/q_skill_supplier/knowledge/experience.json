@@ -1,0 +1,12 @@
+{
+  "EXAMPLE_SUPPLIER_ANALYSIS_001": {
+    "summary": "Example summary of supplier quality analysis",
+    "expert_note": "Expert recommendations for supplier management",
+    "timestamp": "2025-01-01T00:00:00"
+  },
+  "EXAMPLE_SUPPLIER_ANALYSIS_002": {
+    "summary": "Another example supplier analysis summary",
+    "expert_note": "Additional insights on supplier quality trends",
+    "timestamp": "2025-01-01T00:00:00"
+  }
+}
