@@ -108,7 +108,8 @@ Building Q-Forge (AI for Manufacturing) with $0 and 13 hours.
 - 𝕏 (Twitter): [@QForge_Builder](https://x.com/QForge_Builder)
 - 📧 Email: [zhongshunchen1982@gmail.com](mailto:zhongshunchen1982@gmail.com)
 
-*"You must rely on yourself."*
+*"You must rely on yourself."*  
+*人一定要靠自己！*
 
 ---
 
