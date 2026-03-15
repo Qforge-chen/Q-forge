@@ -45,6 +45,17 @@ Note: the HTML files are checked in as final rendered outputs. GitHub will show 
 - The [8D DOCX review demo](https://x.com/QForge_Builder/status/2002694747144741127) matches the same working flow shown in this repository.
 - The examples here come from saved local runs and archived reports, then lightly sanitized for public review. They are not hand-written demo prose.
 
+## Builder Update
+
+- Since the first Q-Forge build, I have continued applying it in real local experiments. The result has been clear enough to validate the core thesis: large models plus deterministic rules can produce useful quality outcomes.
+- Since February 2026, I have also been experimenting with OpenClaw. I have enjoyed building with it, and it feels closer to the runtime direction I want to keep exploring.
+- The original implementation path here was Goose plus MCP. The direction I am now exploring is a quality-customized OpenClaw runtime plus Q-Forge-style skills.
+- Q-Forge remains the public proof layer for what has already worked. The runtime path may evolve, but the practical value of the skills-plus-rules approach has already been validated.
+
+## Maintainer Note
+
+This repository contains commits from two personal environments operated by the same builder during local experimentation and migration work.
+
 ## Repository Layout
 
 - `skills/`: the public skill packages
