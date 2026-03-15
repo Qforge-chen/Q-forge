@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Root Cause Analysis - PM Support Ring End-Face Cracking</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7);
+        }
+        
+        .header-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .header-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .header-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .meta-label {
+            font-size: 12px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        
+        .meta-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+        
+        /* 根因结论卡片 */
+        .root-cause-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15));
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .root-cause-card::before {
+            content: 'ROOT CAUSE IDENTIFIED';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            color: rgba(99, 102, 241, 0.5);
+            letter-spacing: 2px;
+        }
+        
+        .root-cause-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .root-cause-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .root-cause-content {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #fff;
+        }
+        
+        .root-cause-highlight {
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+        
+        /* 卡片通用样式 */
+        .card {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }        
+        /* 问题画像网格 */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .problem-item {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .problem-label {
+            font-size: 12px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        
+        .problem-value {
+            font-size: 16px;
+            color: #fff;
+            font-weight: 500;
+        }
+        
+        .problem-value.alert {
+            color: #f87171;
+            font-weight: 600;
+        }
+        
+        /* 排查流程时间线 */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #6366f1, #8b5cf6, rgba(139, 92, 246, 0.2));
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 24px;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: -36px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .timeline-marker.pass {
+            background: #10b981;
+            color: white;
+        }
+        
+        .timeline-marker.fail {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .timeline-marker.finding {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+        }
+        
+        .timeline-content {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .timeline-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .timeline-status {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        
+        .timeline-status.normal {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+        
+        .timeline-status.issue {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+        
+        /* 表格样式 */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+        
+        .data-table th {
+            background: rgba(15, 23, 42, 0.8);
+            color: #94a3b8;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+        }
+        
+        .data-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.05);
+            color: #e2e8f0;
+        }
+        
+        .data-table tr:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+        
+        /* 流程图 */
+        .flow-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .flow-step {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .flow-step::after {
+            content: '↓';
+            position: absolute;
+            bottom: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            color: #6366f1;
+        }
+        
+        .flow-step:last-child::after {
+            display: none;
+        }
+        
+        .flow-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #6366f1;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .flow-content {
+            font-size: 14px;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+        
+        /* 证据链 */
+        .evidence-item {
+            background: rgba(15, 23, 42, 0.6);
+            border-left: 3px solid #6366f1;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+        }
+        
+        .evidence-type {
+            font-size: 11px;
+            color: #6366f1;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        
+        .evidence-text {
+            font-size: 14px;
+            color: #e2e8f0;
+        }
+        
+        /* 纠正措施 */
+        .action-section {
+            margin-bottom: 24px;
+        }
+        
+        .action-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        
+        .action-badge {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .action-badge.urgent {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+        
+        .action-badge.short {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+        
+        .action-badge.long {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }        
+        /* 风险评估 */
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        
+        .risk-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .risk-level {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .risk-level.high {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 2px solid #ef4444;
+        }
+        
+        .risk-level.medium {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            border: 2px solid #f59e0b;
+        }
+        
+        .risk-level.low {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 2px solid #10b981;
+        }
+        
+        .risk-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        
+        .risk-desc {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        
+        /* 学习要点 */
+        .learning-list {
+            list-style: none;
+        }
+        
+        .learning-item {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .learning-number {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .learning-text {
+            font-size: 14px;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+        
+        .learning-arrow {
+            color: #6366f1;
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px 0;
+            color: #64748b;
+            font-size: 14px;
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
+            margin-top: 40px;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+            
+            .header-title {
+                font-size: 22px;
+            }
+            
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline {
+                padding-left: 24px;
+            }
+            
+            .timeline-marker {
+                left: -20px;
+                width: 16px;
+                height: 16px;
+                font-size: 10px;
+            }
+        }
+        
+        /* 高亮文本 */
+        .highlight {
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+        
+        /* 代码块 */
+        .code-block {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #cbd5e1;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        
+        /* 统计数字 */
+        .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-title">
+                <div class="header-icon">🔍</div>
+                粉末冶金支撑圈端面开裂根因分析报告
+            </div>
+            <div class="header-meta">
+                <div class="meta-item">
+                    <span class="meta-label">报告编号</span>
+                    <span class="meta-value">RCA-PM-20240910-001</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">分析日期</span>
+                    <span class="meta-value">2026-01-02</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">产品名称</span>
+                    <span class="meta-value">粉末冶金支撑圈</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">规格型号</span>
+                    <span class="meta-value">Φ80mm 圆环形（边缘有台阶）</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">问题批次</span>
+                    <span class="meta-value">20240910</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">分析师</span>
+                    <span class="meta-value">Q-Forge 质量智能系统</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 根因结论 -->
+        <div class="root-cause-card">
+            <div class="root-cause-title">
+                <div class="root-cause-badge">
+                    ✅ 根因确认
+                </div>
+            </div>
+            <div class="root-cause-content">
+                <span class="root-cause-highlight">批次 20240910 压制压力异常增大 30%</span>，导致粉末冶金支撑圈无台阶端面产生高残余应力和密度梯度，形成微裂纹（目视不可见），在客户装配后应力作用下扩展为可见裂纹。
+            </div>
+        </div>        
+        <!-- 问题描述 -->
+        <div class="card">
+            <div class="card-title">
+                <div class="card-icon">📋</div>
+                问题画像
+            </div>
+            <div class="problem-grid">
+                <div class="problem-item">
+                    <div class="problem-label">产品信息</div>
+                    <div class="problem-value">粉末冶金支撑圈（Φ80mm 圆环形，边缘有台阶）</div>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-label">裂纹位置</div>
+                    <div class="problem-value">无台阶端面，从边缘向中心延伸</div>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-label">发现时机</div>
+                    <div class="problem-value">客户装配后（渗透检测发现）</div>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-label">不良率</div>
+                    <div class="problem-value alert">50%（严重质量事故）</div>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-label">批次范围</div>
+                    <div class="problem-value">仅批次 20240910（其他批次正常）</div>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-label">工艺变更</div>
+                    <div class="problem-value">近期无变更</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 排查流程 -->
+        <div class="card">
+            <div class="card-title">
+                <div class="card-icon">🔬</div>
+                五步排查流程
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker pass">✓</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            STEP 0: 问题定义确认
+                            <span class="timeline-status normal">完成</span>
+                        </div>
+                        <table class="data-table">
+                            <tr>
+                                <th>项目</th>
+                                <th>详情</th>
+                            </tr>
+                            <tr>
+                                <td>裂纹特征</td>
+                                <td>全部是无台阶端面开裂，从边缘向中心延伸</td>
+                            </tr>
+                            <tr>
+                                <td>检测方法</td>
+                                <td>渗透检测（目视检查未发现）</td>
+                            </tr>
+                            <tr>
+                                <td>批次特异性</td>
+                                <td>只有批次 20240910 出现问题</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker pass">✓</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            STEP 1: 整形/加工触发（排查）
+                            <span class="timeline-status normal">正常</span>
+                        </div>
+                        <table class="data-table">
+                            <tr>
+                                <th>检查项</th>
+                                <th>结果</th>
+                            </tr>
+                            <tr>
+                                <td>整形工艺</td>
+                                <td>两个端面都压</td>
+                            </tr>
+                            <tr>
+                                <td>整形监控</td>
+                                <td>无异常记录</td>
+                            </tr>
+                            <tr>
+                                <td>出厂检验</td>
+                                <td>目视检查未发现问题</td>
+                            </tr>
+                            <tr>
+                                <td>结论</td>
+                                <td>✅ 整形工序正常，但裂纹在出厂前已存在（微细裂纹）</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker pass">✓</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            STEP 2: 烧结阶段（排查）
+                            <span class="timeline-status normal">已剪枝</span>
+                        </div>
+                        <table class="data-table">
+                            <tr>
+                                <th>检查项</th>
+                                <th>结果</th>
+                            </tr>
+                            <tr>
+                                <td>烧结温度/时间</td>
+                                <td>正常</td>
+                            </tr>
+                            <tr>
+                                <td>炉温均匀性</td>
+                                <td>正常</td>
+                            </tr>
+                            <tr>
+                                <td>气氛控制</td>
+                                <td>正常</td>
+                            </tr>
+                            <tr>
+                                <td>金相分析</td>
+                                <td>异常（但非烧结问题）</td>
+                            </tr>
+                            <tr>
+                                <td>结论</td>
+                                <td>✅ <strong>已剪枝：烧结全面排查无问题</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker pass">✓</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            STEP 3: 脱脂阶段（排查）
+                            <span class="timeline-status normal">已剪枝</span>
+                        </div>
+                        <table class="data-table">
+                            <tr>
+                                <th>检查项</th>
+                                <th>结果</th>
+                            </tr>
+                            <tr>
+                                <td>脱脂参数</td>
+                                <td>正常</td>
+                            </tr>
+                            <tr>
+                                <td>装炉情况</td>
+                                <td>正常</td>
+                            </tr>
+                            <tr>
+                                <td>结论</td>
+                                <td>✅ <strong>已剪枝：脱脂无异常</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker finding">🎯</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            STEP 4: 压制/顶出（根因锁定）
+                            <span class="timeline-status issue">发现异常</span>
+                        </div>
+                        <table class="data-table">
+                            <tr>
+                                <th>检查项</th>
+                                <th>结果</th>
+                            </tr>
+                            <tr>
+                                <td>压制压力</td>
+                                <td><span class="highlight">⚠️ 异常增大 30%</span></td>
+                            </tr>
+                            <tr>
+                                <td>设备维护</td>
+                                <td>无维护记录</td>
+                            </tr>
+                            <tr>
+                                <td>模具状态</td>
+                                <td>正常</td>
+                            </tr>
+                            <tr>
+                                <td>顶出力</td>
+                                <td>正常</td>
+                            </tr>
+                            <tr>
+                                <td>金相分析</td>
+                                <td>异常（密度梯度 + 微裂纹）</td>
+                            </tr>
+                            <tr>
+                                <td>结论</td>
+                                <td>🎯 <strong>根因确认：压制压力异常</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>        
+        <!-- 物理机制分析 -->
+        <div class="card">
+            <div class="card-title">
+                <div class="card-icon">⚙️</div>
+                缺陷形成机制
+            </div>
+            <div class="flow-chart">
+                <div class="flow-step">
+                    <div class="flow-title">第 1 步：压制阶段（Compaction）</div>
+                    <div class="flow-content">
+                        <strong style="color: #ef4444;">压力过大 +30%</strong><br>
+                        → 绿坯内部产生高残余应力<br>
+                        → 密度分布不均（无台阶端面应力更集中）<br>
+                        → 可能产生微裂纹/层裂（目视不可见）
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-title">第 2 步：烧结阶段（Sintering）</div>
+                    <div class="flow-content">
+                        → 残余应力部分释放，但缺陷已固化<br>
+                        → 微裂纹无法通过烧结消除<br>
+                        → 密度梯度保留
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-title">第 3 步：整形阶段（Sizing）</div>
+                    <div class="flow-content">
+                        → 整形载荷作用在已有缺陷的绿坯上<br>
+                        → 微裂纹扩展（但仍目视不可见）<br>
+                        → 无台阶端面承受更大应力（结构不对称）
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-title">第 4 步：客户装配阶段</div>
+                    <div class="flow-content">
+                        → 装配应力触发裂纹扩展<br>
+                        → 裂纹显性化（渗透检测发现）<br>
+                        → <strong style="color: #ef4444;">50% 不良率（批次性异常）</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h3 style="color: #fff; font-size: 16px; margin-bottom: 16px;">为什么只有无台阶端面开裂？</h3>
+            <table class="data-table">
+                <tr>
+                    <th>因素</th>
+                    <th>分析</th>
+                </tr>
+                <tr>
+                    <td>结构不对称</td>
+                    <td>有台阶端面刚性更强，无台阶端面更薄弱</td>
+                </tr>
+                <tr>
+                    <td>应力集中</td>
+                    <td>压制压力过大时，无台阶端面应力更集中</td>
+                </tr>
+                <tr>
+                    <td>密度梯度</td>
+                    <td>无台阶端面密度不均更严重</td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- 证据链验证 -->
+        <div class="card">
+            <div class="card-title">
+                <div class="card-icon">🔗</div>
+                证据链验证
+                <span style="margin-left: auto; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600;">✅ VERIFIED</span>
+            </div>
+            
+            <div class="evidence-item">
+                <div class="evidence-type">数据证据</div>
+                <div class="evidence-text">批次特异性：只有 20240910 出现问题，其他批次正常</div>
+            </div>
+            <div class="evidence-item">
+                <div class="evidence-type">数据证据</div>
+                <div class="evidence-text">工艺参数记录：压制压力 <span class="highlight">+30%</span>（直接根因）</div>
+            </div>
+            <div class="evidence-item">
+                <div class="evidence-type">数据证据</div>
+                <div class="evidence-text">排查记录：烧结、脱脂、整形均正常（排除其他因素）</div>
+            </div>
+            <div class="evidence-item">
+                <div class="evidence-type">机理证据</div>
+                <div class="evidence-text">金相分析异常：组织缺陷（压力过大导致）</div>
+            </div>
+            <div class="evidence-item">
+                <div class="evidence-type">机理证据</div>
+                <div class="evidence-text">裂纹位置：只出现在无台阶端面（应力集中区）</div>
+            </div>
+            <div class="evidence-item">
+                <div class="evidence-type">机理证据</div>
+                <div class="evidence-text">发现时机：出厂未发现，装配后发现（微裂纹扩展机制）</div>
+            </div>
+            <div class="evidence-item">
+                <div class="evidence-type">机理证据</div>
+                <div class="evidence-text">不良率 50%（高比例指向批次性工艺异常）</div>
+            </div>
+            
+            <div class="code-block" style="margin-top: 20px; text-align: center; font-weight: 600; color: #10b981;">
+                结论：证据链完整（包含机理和实证），可以直接下结论。
+            </div>
+        </div>
+        
+        <!-- 纠正措施 -->
+        <div class="card">
+            <div class="card-title">
+                <div class="card-icon">📋</div>
+                纠正措施计划
+            </div>
+            
+            <div class="action-section">
+                <div class="action-header">
+                    <span class="action-badge urgent">🔴 立即行动</span>
+                    <span style="color: #94a3b8; font-size: 14px;">遏制措施</span>
+                </div>
+                <table class="data-table">
+                    <tr>
+                        <th style="width: 60px;">序号</th>
+                        <th>措施</th>
+                        <th style="width: 100px;">责任人</th>
+                        <th style="width: 100px;">完成期限</th>
+                    </tr>
+                    <tr>
+                        <td><strong>1</strong></td>
+                        <td><strong>隔离问题批次</strong>：批次 20240910 全部召回/隔离</td>
+                        <td>生产部</td>
+                        <td style="color: #ef4444; font-weight: 600;">立即</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2</strong></td>
+                        <td><strong>客户沟通</strong>：说明根因，提供替换批次</td>
+                        <td>销售部</td>
+                        <td style="color: #f59e0b; font-weight: 600;">24小时内</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3</strong></td>
+                        <td><strong>库存排查</strong>：检查是否有其他批次也存在压力异常</td>
+                        <td>质量部</td>
+                        <td style="color: #f59e0b; font-weight: 600;">48小时内</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4</strong></td>
+                        <td><strong>压力系统标定</strong>：立即检查压力传感器/液压系统</td>
+                        <td>设备部</td>
+                        <td style="color: #ef4444; font-weight: 600;">立即</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="action-section">
+                <div class="action-header">
+                    <span class="action-badge short">🟡 短期措施</span>
+                    <span style="color: #94a3b8; font-size: 14px;">纠正措施</span>
+                </div>
+                <table class="data-table">
+                    <tr>
+                        <th style="width: 60px;">序号</th>
+                        <th>措施</th>
+                        <th style="width: 100px;">责任人</th>
+                        <th style="width: 100px;">完成期限</th>
+                    </tr>
+                    <tr>
+                        <td><strong>5</strong></td>
+                        <td><strong>工艺参数复核</strong>：确认正常批次的压制压力范围</td>
+                        <td>工艺部</td>
+                        <td>1周内</td>
+                    </tr>
+                    <tr>
+                        <td><strong>6</strong></td>
+                        <td><strong>加强首件检验</strong>：压制后增加绿坯密度/裂纹检测</td>
+                        <td>质量部</td>
+                        <td style="color: #ef4444; font-weight: 600;">立即执行</td>
+                    </tr>
+                    <tr>
+                        <td><strong>7</strong></td>
+                        <td><strong>压力异常调查</strong>：查明为什么压力会增大 30%</td>
+                        <td>设备/工艺</td>
+                        <td>1周内</td>
+                    </tr>
+                    <tr>
+                        <td><strong>8</strong></td>
+                        <td><strong>返工/报废处理</strong>：根据金相结果决定问题批次处理方式</td>
+                        <td>质量部</td>
+                        <td>2周内</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="action-section">
+                <div class="action-header">
+                    <span class="action-badge long">🟢 长期措施</span>
+                    <span style="color: #94a3b8; font-size: 14px;">预防措施</span>
+                </div>
+                <table class="data-table">
+                    <tr>
+                        <th style="width: 60px;">序号</th>
+                        <th>措施</th>
+                        <th style="width: 100px;">责任人</th>
+                        <th style="width: 100px;">完成期限</th>
+                    </tr>
+                    <tr>
+                        <td><strong>9</strong></td>
+                        <td><strong>压力 SPC 监控</strong>：建立压制压力实时监控和报警机制</td>
+                        <td>质量/设备</td>
+                        <td>1个月内</td>
+                    </tr>
+                    <tr>
+                        <td><strong>10</strong></td>
+                        <td><strong>压力变更审批</strong>：任何压力调整需要质量部门审批</td>
+                        <td>工艺部</td>
+                        <td style="color: #ef4444; font-weight: 600;">立即执行</td>
+                    </tr>
+                    <tr>
+                        <td><strong>11</strong></td>
+                        <td><strong>模具定期校准</strong>：检查模具磨损，防止压力补偿性增大</td>
+                        <td>设备部</td>
+                        <td>按月执行</td>
+                    </tr>
+                    <tr>
+                        <td><strong>12</strong></td>
+                        <td><strong>无损检测升级</strong>：关键产品增加出厂渗透/磁粉探伤</td>
+                        <td>质量部</td>
+                        <td>1个月内</td>
+                    </tr>
+                    <tr>
+                        <td><strong>13</strong></td>
+                        <td><strong>员工培训</strong>：压力异常识别和应急处理</td>
+                        <td>人事部</td>
+                        <td>1个月内</td>
+                    </tr>
+                </table>
+            </div>
+        </div>        
+        <!-- 风险评估 -->
+        <div class="card">
+            <div class="card-title">
+                <div class="card-icon">📊</div>
+                风险评估
+            </div>
+            
+            <h3 style="color: #fff; font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">当前风险等级</h3>
+            <div class="risk-grid" style="margin-bottom: 24px;">
+                <div class="risk-card">
+                    <div class="risk-level high">🔴</div>
+                    <div class="risk-name">质量风险</div>
+                    <div class="risk-desc">50% 不良率，客户装配线停线风险</div>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-level high">🔴</div>
+                    <div class="risk-name">客户风险</div>
+                    <div class="risk-desc">客户信任度影响，可能面临索赔</div>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-level medium">🟡</div>
+                    <div class="risk-name">财务风险</div>
+                    <div class="risk-desc">召回成本 + 库品损失</div>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-level medium">🟡</div>
+                    <div class="risk-name">声誉风险</div>
+                    <div class="risk-desc">需要主动沟通，避免扩散</div>
+                </div>
+            </div>
+            
+            <h3 style="color: #fff; font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">预防后风险等级</h3>
+            <div class="risk-grid">
+                <div class="risk-card">
+                    <div class="risk-level low">🟢</div>
+                    <div class="risk-name">质量风险</div>
+                    <div class="risk-desc">SPC 监控 + 压力审批制度</div>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-level low">🟢</div>
+                    <div class="risk-name">客户风险</div>
+                    <div class="risk-desc">无损检测升级，拦截风险增强</div>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-level low">🟢</div>
+                    <div class="risk-name">财务风险</div>
+                    <div class="risk-desc">早期发现，批量性风险降低</div>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-level low">🟢</div>
+                    <div class="risk-name">声誉风险</div>
+                    <div class="risk-desc">主动改进，提升客户信心</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 经验总结 -->
+        <div class="card">
+            <div class="card-title">
+                <div class="card-icon">💡</div>
+                关键学习点
+            </div>
+            <ul class="learning-list">
+                <li class="learning-item">
+                    <div class="learning-number">1</div>
+                    <div class="learning-text">
+                        <span class="learning-arrow">批次特异性问题</span> → 优先排查工艺参数异常（如压力、温度）
+                    </div>
+                </li>
+                <li class="learning-item">
+                    <div class="learning-number">2</div>
+                    <div class="learning-text">
+                        <span class="learning-arrow">金相异常 + 工艺正常</span> → 重点检查上游工序（压制/脱脂）
+                    </div>
+                </li>
+                <li class="learning-item">
+                    <div class="learning-number">3</div>
+                    <div class="learning-text">
+                        <span class="learning-arrow">微裂纹延迟发现</span> → 考虑增加无损检测（渗透/磁粉）
+                    </div>
+                </li>
+                <li class="learning-item">
+                    <div class="learning-number">4</div>
+                    <div class="learning-text">
+                        <span class="learning-arrow">结构不对称开裂</span> → 关注应力集中区和密度梯度
+                    </div>
+                </li>
+            </ul>
+            
+            <div class="section-divider"></div>
+            
+            <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: 12px; padding: 20px;">
+                <h4 style="color: #fff; font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                    📚 知识库更新
+                </h4>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #cbd5e1;">
+                    案例编号：PM支撑圈_压制压力异常_端面开裂_20240910<br>
+                    状态：✅ 已保存到经验库<br>
+                    总案例数：13 个
+                </div>
+            </div>
+        </div>
+        
+        <!-- 附件 -->
+        <div class="card">
+            <div class="card-title">
+                <div class="card-icon">📎</div>
+                建议收集的证据
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px;">
+                <label style="display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(15, 23, 42, 0.6); border-radius: 8px; cursor: pointer;">
+                    <input type="checkbox" style="width: 18px; height: 18px; accent-color: #6366f1;">
+                    <span style="color: #cbd5e1; font-size: 14px;">批次 20240910 压制压力记录曲线</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(15, 23, 42, 0.6); border-radius: 8px; cursor: pointer;">
+                    <input type="checkbox" style="width: 18px; height: 18px; accent-color: #6366f1;">
+                    <span style="color: #cbd5e1; font-size: 14px;">金相分析报告（异常批次 vs 正常批次对比）</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(15, 23, 42, 0.6); border-radius: 8px; cursor: pointer;">
+                    <input type="checkbox" style="width: 18px; height: 18px; accent-color: #6366f1;">
+                    <span style="color: #cbd5e1; font-size: 14px;">压力传感器/液压系统检查报告</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(15, 23, 42, 0.6); border-radius: 8px; cursor: pointer;">
+                    <input type="checkbox" style="width: 18px; height: 18px; accent-color: #6366f1;">
+                    <span style="color: #cbd5e1; font-size: 14px;">客户开裂照片和渗透检测报告</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(15, 23, 42, 0.6); border-radius: 8px; cursor: pointer;">
+                    <input type="checkbox" style="width: 18px; height: 18px; accent-color: #6366f1;">
+                    <span style="color: #cbd5e1; font-size: 14px;">其他批次（20240905、20240915）的对比数据</span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div style="margin-bottom: 12px;">
+                <strong style="color: #94a3b8;">报告编制：</strong>Q-Forge 质量智能系统
+                <span style="margin: 0 16px; color: #475569;">|</span>
+                <strong style="color: #94a3b8;">审核：</strong>待质量工程师审核
+                <span style="margin: 0 16px; color: #475569;">|</span>
+                <strong style="color: #94a3b8;">批准：</strong>待质量经理批准
+            </div>
+            <div style="margin-bottom: 12px;">
+                <strong style="color: #94a3b8;">分发部门：</strong>生产部、设备部、质量部、销售部
+            </div>
+            <div style="margin-bottom: 8px;">
+                本报告由 Q-Forge 粉末冶金根因分析模块生成
+            </div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #64748b;">
+                报告版本：v1.0 | 生成时间：2026-01-02 20:08:49
+            </div>
+            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(99, 102, 241, 0.1);">
+                <span style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2)); color: #818cf8; padding: 6px 12px; border-radius: 6px; font-size: 12px;">
+                    🔐 逻辑锁验证：VERIFIED ✅
+                </span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

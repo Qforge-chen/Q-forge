@@ -1,20 +1,13 @@
-# Q-Forge Sample Data
+# Data Policy
 
-> 📦 **Coming Soon**: Synthetic datasets for testing and demonstration
+This repository does not publish raw manufacturing data.
 
-This directory will contain:
+## Public Evidence Location
 
-- `sample_8d_report.json` - Example 8D report for validation testing
-- `sample_iqc_data.xlsx` - Synthetic IQC inspection data
-- `sample_supplier_metrics.xlsx` - Synthetic supplier quality metrics
+The current public proof set lives in [examples](../examples/README.md), not in this folder.
 
----
+## Why This Folder Is Minimal
 
-## Data Policy
-
-All data in this directory is **synthetic** and generated for demonstration purposes only.
-No real customer or company data is included.
-
----
-
-*Q-Forge: The Local AI Auditor for Manufacturing.*
+- Real-world quality data is sensitive.
+- This Hackathon pass focuses on sanitized example inputs and saved outputs.
+- Supplier datasets are intentionally held back until the public boundary is cleaner.

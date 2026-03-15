@@ -6,7 +6,7 @@ from datetime import datetime
 mcp = FastMCP("q-skill-reporter")
 
 # 默认数据目录
-DEFAULT_DATA_DIR = r"C:\Users\chen\Desktop\Qcli\Q-FORGE-V1\data"
+DEFAULT_DATA_DIR = str(Path.cwd())
 
 
 @mcp.tool()
@@ -18,7 +18,7 @@ def list_md_files(directory: str = DEFAULT_DATA_DIR) -> dict:
     扫描目录，返回所有 .md 文件的列表，帮助用户选择要转换的报告。
     
     Args:
-        directory: 要扫描的目录路径，默认为 Q-FORGE-V1/data
+        directory: 要扫描的目录路径，默认为当前工作目录
     
     Returns:
         包含文件列表的字典

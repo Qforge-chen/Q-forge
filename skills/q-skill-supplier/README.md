@@ -1,25 +1,19 @@
-# Q-Skill-Supplier
+# q-skill-supplier
 
-供应商质量监控 MCP 技能包 - Q-Forge 专用
+Q-Forge package for IQC and supplier quality monitoring.
 
-## 功能
+## What It Does
 
-- 读取供应商质量数据（Excel）
-- 计算供应商质量指标（合格率、PPM、趋势）
-- 供应商质量排名和预警
-- 经验知识积累
+- Reads supplier quality inputs such as inspection or metric tables
+- Tracks quality performance, risk signals, and ranking logic
+- Supports supplier-facing quality monitoring workflows
 
-## 安装
+## Public Position In This Pass
+
+This package is already part of the working Q-Forge stack, but it is not expanded with public examples in the current Hackathon pass. The public repo is intentionally centered on the 8D and RCA proof chains first.
+
+## Install
 
 ```bash
 pip install -e .
-```
-
-## 在 qforge 中使用
-
-```bash
-qforge configure
-# 添加扩展：
-# Type: SSE
-# Command: python -m q_skill_supplier
 ```

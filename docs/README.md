@@ -1,29 +1,13 @@
-# Q-Forge Documentation
+# Q-Forge Docs
 
-> 📚 **Coming Soon**: Architecture & Integration Guide
+This folder only contains public-facing documents for the current Hackathon pass.
 
-This directory will contain:
+## Available Now
 
-- `architecture.md` - System architecture and design principles
-- `getting-started.md` - Quick start guide for developers
-- `mcp-integration.md` - How to integrate Q-Forge skills with Goose/MCP
+- [hackathon-roadmap.md](hackathon-roadmap.md): what is already working, what this pass publishes, and what comes next
 
----
+## Not Published Here
 
-## Core Concepts
-
-### Three-Layer Architecture
-
-```
-Q-Forge = Logic Lock + Golden Prompt + Model Call
-```
-
-| Layer | Description |
-|-------|-------------|
-| **Logic Lock** | Deterministic Python gates for quality control |
-| **Golden Prompt** | Expert knowledge encoded as MECE rules |
-| **Model Call** | Generic LLM reasoning (GPT/GLM/Claude) |
-
----
-
-*Q-Forge: The Local AI Auditor for Manufacturing.*
+- Private project memory
+- Internal operating notes
+- Full local runtime setup for the customized Goose or Q-Forge host

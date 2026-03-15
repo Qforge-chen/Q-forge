@@ -1,132 +1,83 @@
 # Q-Forge
 
-**The Local AI Auditor for Manufacturing.**
+Q-Forge is a quality-focused agent system for manufacturing workflows, not a general chatbot.
 
-> **"You must rely on yourself."**  
-> Built by **Chen Zhongshun (Master Chen)** — Rebel Engineer. 20 years in Quality.
+This public repository is the proof layer: real skill packages, sanitized examples, rendered outputs, and a short demo. The customized Goose or Q-Forge runtime stays local.
 
----
+[![8D DOCX review demo](assets/8d-docx-review-demo-cover.jpg)](assets/8d-docx-review-demo-short.mp4)
 
-## 🎯 The Problem
+Open the preview image to watch the 40-second 8D demo.
 
-**Traditional quality audits fail in the AI era:**
+<p align="center">
+  <img src="assets/input-quality-gate.png" alt="Input quality gate" width="31%">
+  <img src="assets/output-validation-stamp.png" alt="Output validation stamp" width="31%">
+  <img src="assets/output-guardrails-shipped.png" alt="Output guardrails shipped" width="31%">
+</p>
 
-| Traditional Approach | The Reality |
-|---------------------|-------------|
-| Manual 8D review | Missed gaps, inconsistent standards |
-| Excel-based supplier tracking | Reactive, not predictive |
-| Tribal knowledge | Walks out the door when experts leave |
+## Already Working Now
 
-## 💡 The Q-Forge Solution
+| Capability | What is already working | Public proof |
+| --- | --- | --- |
+| **8D** | Word-based 8D intake, deterministic D3-D7 checks, audit verdict, and closure guidance | [good input](examples/8d/input/8d-case-good.docx), [bad input](examples/8d/input/8d-case-bad.docx), [approved audit](examples/8d/output/8d-review-approved.md), [rendered HTML](examples/8d/output/8d-review-rendered.html) |
+| **RCA** | Constrained branch-pruning root cause reasoning with saved case output | [markdown output](examples/rootcause/output/rootcause-pm-ring.md), [rendered HTML](examples/rootcause/output/rootcause-pm-ring.html) |
+| **Reporter** | Markdown and logical outputs rendered into decision-ready HTML pages | [8D preview](assets/8d-rendered-report-preview.png), [RCA preview](assets/rootcause-rendered-report-preview.png) |
+| **Supplier** | Working package for IQC and supplier quality monitoring | Capability summary only in this pass: [q-skill-supplier](skills/q-skill-supplier/README.md) |
 
-**Q-Forge transforms quality expertise into deployable AI skills.**
+<p align="center">
+  <img src="assets/8d-rendered-report-preview.png" alt="8D rendered report preview" width="48%">
+  <img src="assets/rootcause-rendered-report-preview.png" alt="RCA rendered report preview" width="48%">
+</p>
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                        Q-Forge                               │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐     │
-│  │ Logic Lock  │ →  │Golden Prompt│ →  │ Model Call  │     │
-│  │ (Python)    │    │ (Knowledge) │    │ (LLM)       │     │
-│  └─────────────┘    └─────────────┘    └─────────────┘     │
-│                                                             │
-│  Deterministic       Expert Rules      Reasoning Engine     │
-│  Quality Gates       (MECE Format)     (GPT/GLM/Claude)     │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
+## Public Examples
 
-### The Three-Layer Philosophy
+- 8D good input: [examples/8d/input/8d-case-good.docx](examples/8d/input/8d-case-good.docx)
+- 8D bad input: [examples/8d/input/8d-case-bad.docx](examples/8d/input/8d-case-bad.docx)
+- 8D approved markdown output: [examples/8d/output/8d-review-approved.md](examples/8d/output/8d-review-approved.md)
+- 8D rendered HTML output: [examples/8d/output/8d-review-rendered.html](examples/8d/output/8d-review-rendered.html)
+- RCA markdown output: [examples/rootcause/output/rootcause-pm-ring.md](examples/rootcause/output/rootcause-pm-ring.md)
+- RCA rendered HTML output: [examples/rootcause/output/rootcause-pm-ring.html](examples/rootcause/output/rootcause-pm-ring.html)
 
-| Layer | What It Does | Why It Matters |
-|-------|--------------|----------------|
-| **Logic Lock** | Hardcoded business rules in Python | Never relies on LLM judgment for critical checks |
-| **Golden Prompt** | Expert knowledge encoded as machine-readable rules | Your years of experience, now reusable |
-| **Model Call** | Generic LLM for reasoning | Models are public, knowledge is yours |
+Note: the HTML files are checked in as final rendered outputs. GitHub will show the file source in-browser; download or open them locally if you want the full page experience.
 
-> **"I don't build models. I build knowledge."**  
-> — Chen Zhongshun
+## Why This Is Real
 
----
+- The [Jan 18, 2026 output guardrails thread](https://x.com/QForge_Builder/status/2012897010924335241) shows the validation layer that now sits behind the public 8D example.
+- The [8D DOCX review demo](https://x.com/QForge_Builder/status/2002694747144741127) matches the same working flow shown in this repository.
+- The examples here come from saved local runs and archived reports, then lightly sanitized for public review. They are not hand-written demo prose.
 
-## 📦 Skill Packages (Continuous Update 🔄)
+## Repository Layout
 
-This repository is actively maintained and updated with new skills and logic gates.
+- `skills/`: the public skill packages
+- `examples/`: sanitized inputs, outputs, and rendered pages used for this pass
+- `assets/`: screenshots and short demo media for fast review
+- `docs/`: brief public docs for the current Hackathon pass
 
-| Skill | Description | Key Feature |
-|-------|-------------|-------------|
-| **q-skill-8d** | 8D Report Auditor | 4-location containment gate, D4 root cause validation |
-| **q-skill-rootcause** | Root Cause Analyzer | Fault tree + elimination method |
-| **q-skill-supplier** | Supplier Quality Monitor | PPM tracking, risk alerts |
-| **q-skill-reporter** | Report Generator | Markdown/HTML output |
-
----
-
-## 🛠️ Base System: Q-Forge Core
-
-The base system of Q-Forge is a lightly customized version of [Goose](https://github.com/block/goose). 
-
-> [!NOTE]
-> The core `qforge` binary and customized Goose environment are **not** included in this repository to keep it lightweight. I will be sharing my specialized **System Prompts** and configuration files later in the `docs/` folder.
-
----
-
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
-# Clone the repository
 git clone https://github.com/Qforge-chen/Q-forge.git
 cd Q-forge
 
-# Install a skill (e.g., 8D auditor)
 cd skills/q-skill-8d
 pip install -e .
 ```
 
----
+You can install the other packages the same way:
 
-## 🧠 Design Philosophy
+- `skills/q-skill-rootcause`
+- `skills/q-skill-reporter`
+- `skills/q-skill-supplier`
 
-> **"Models are public, knowledge is yours."**
+## Scope Note
 
-The real barrier in AI for manufacturing is not the model — it's the **domain expertise**.
+- Included here: skill packages, public examples, screenshots, and demo assets.
+- Intentionally excluded: private project memory, internal operating documents, and the customized local Goose or Q-Forge runtime.
 
-Q-Forge is a framework for **Knowledge Productization**:
-- Consulting becomes a system
-- Training becomes a rule engine  
-- Experience becomes a reusable asset
+## Contact
 
----
+- X: [@QForge_Builder](https://x.com/QForge_Builder)
+- Email: [zhongshunchen1982@gmail.com](mailto:zhongshunchen1982@gmail.com)
 
-## 👤 About the Author
+## License
 
-**Chen Zhongshun (Master Chen)**  
-**Rebel Engineer.** 20 years in Quality.  
-Building Q-Forge (AI for Manufacturing) with $0 and 13 hours.  
-
-- 𝕏 (Twitter): [@QForge_Builder](https://x.com/QForge_Builder)
-- 📧 Email: [zhongshunchen1982@gmail.com](mailto:zhongshunchen1982@gmail.com)
-
-*"You must rely on yourself."*  
-*人一定要靠自己！*
-
----
-
-## 📄 License
-
-Apache License 2.0 — See [LICENSE](LICENSE) for details.
-
----
-
-## ⚠️ Disclaimer
-
-Q-Forge is a **personal project** developed by Chen Zhongshun during **personal time** (weekends and evenings).
-
-- No proprietary data, code, or resources from any employer were used in the development of this project.
-- All domain knowledge represented here is derived from publicly available standards and the author's personal experience accumulated over 20 years.
-- This project is released under the Apache 2.0 License for educational and community purposes.
-
----
-
-*Q-Forge: The Local AI Auditor for Manufacturing.*
+Apache License 2.0. See [LICENSE](LICENSE).

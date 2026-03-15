@@ -1,24 +1,22 @@
-# Q-Skill-8D
+# q-skill-8d
 
-8D 报告审核 MCP 技能包 - Q-Forge 专用
+Q-Forge package for 8D report intake and audit.
 
-## 功能
+## What It Does
 
-- 读取 Word 格式的 8D 报告
-- 按 D3-D8 各环节进行严格审核
-- 识别不合格环节并给出驳回意见
-- 经验知识积累
+- Reads Word-based 8D reports
+- Validates critical sections with deterministic rules
+- Flags missing containment, weak root cause logic, and incomplete closure conditions
+- Produces review outputs that can be rendered into HTML
 
-## 审核标准
+## Public Proof
 
-- **D3 临时措施**：必须排查在制、在途、客户处、我司产线 4 个位置
-- **D4 原因分析**：必须包含发生机制、产生原因（工艺根因）、流出原因
-- **D5 改善措施**：必须与 D4 一一对应
-- **D6 效果验证**：必须有生产验证或实验验证
-- **D7 预防措施**：必须从制度文件角度展开，包含培训
-- **D8 总结关闭**：建议有总结
+- [Good input sample](../../examples/8d/input/8d-case-good.docx)
+- [Bad input sample](../../examples/8d/input/8d-case-bad.docx)
+- [Approved audit output](../../examples/8d/output/8d-review-approved.md)
+- [Rendered HTML output](../../examples/8d/output/8d-review-rendered.html)
 
-## 安装
+## Install
 
 ```bash
 pip install -e .
