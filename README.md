@@ -36,6 +36,15 @@ This repository now shows one concrete thing:
 
 Q-Forge was already real before this pass, and after one focused 24-hour migration sprint it became a local OpenClaw quality edition with working mobile proof.
 
+### Direct Running Proof
+
+This repository contains direct running proof, not only design notes.
+
+- the workflows shown here were executed end to end
+- the proof set includes real local HTML artifacts
+- the proof set includes real Android chat screenshots
+- the public examples, rendered outputs, and mobile traces all come from actual runs
+
 [![8D DOCX review demo](assets/8d-docx-review-demo-cover.jpg)](assets/8d-docx-review-demo-short.mp4)
 
 Open the preview image to watch the 40-second 8D demo from the earlier Goose + MCP phase.

@@ -9,9 +9,9 @@ Q-Forge already runs as a local quality workflow system with four core capabilit
 - `reporter`: decision-ready HTML rendering
 - `supplier`: IQC and supplier quality monitoring
 
-## What This Public Pass Shows
+## What This Public Release Shows
 
-This repository pass now shows a larger migration result:
+This repository release now shows a larger migration result:
 
 - `8D` mobile proof is complete
 - `RCA` mobile proof is complete
@@ -20,7 +20,7 @@ This repository pass now shows a larger migration result:
 
 ## Why This Scope
 
-The immediate goal is not a full product release. It is a fast public engineering proof for review and follow-on builders:
+The immediate goal is not a full product release. It is a compact public engineering proof for review and follow-on builders:
 
 - real package code
 - short demo media
