@@ -1,4 +1,4 @@
-# QMS Lite Architecture
+# OpenClaw Quality Architecture
 
 ```mermaid
 flowchart LR

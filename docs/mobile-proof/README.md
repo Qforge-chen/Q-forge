@@ -1,6 +1,6 @@
-# Mobile Alpha Proof
+# Mobile Proof
 
-This folder stores local staging evidence for the first mobile alpha milestone of QMS Lite.
+This folder stores the public mobile proof set for the current OpenClaw quality-edition pass.
 
 Current proof captured:
 
@@ -51,6 +51,6 @@ Current status:
 
 Notes:
 
-- this is a staging folder inside the public repo working copy
-- screenshots from the phone UI should be added later as separate proof assets
+- this folder is meant to be publicly readable, not only locally staged
+- the goal is to show start, reasoning, and conclusion without dumping full long chats
 - no private runtime paths or customer data should be copied here without review

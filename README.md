@@ -40,10 +40,47 @@ Q-Forge was already real before this pass, and after one focused 24-hour migrati
 
 Open the preview image to watch the 40-second 8D demo from the earlier Goose + MCP phase.
 
+## Proof At A Glance
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="docs/mobile-proof/supplier-mobile-proof-20260316.jpg" alt="Supplier mobile proof" width="240" />
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/mobile-proof/8d-mobile-chat-proof-good-20260316.jpg" alt="8D mobile proof" width="240" />
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/mobile-proof/rca-mobile-chat-conclusion-20260316.jpg" alt="RCA mobile proof" width="240" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Supplier mobile proof</sub></td>
+    <td align="center"><sub>8D mobile proof</sub></td>
+    <td align="center"><sub>RCA mobile proof</sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <img src="assets/output-validation-stamp.png" alt="Validation stamp" width="240" />
+    </td>
+    <td align="center" width="33%">
+      <img src="assets/8d-rendered-report-preview.png" alt="8D rendered report preview" width="240" />
+    </td>
+    <td align="center" width="33%">
+      <img src="assets/rootcause-rendered-report-preview.png" alt="RCA rendered report preview" width="240" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Validation lock</sub></td>
+    <td align="center"><sub>8D report artifact</sub></td>
+    <td align="center"><sub>RCA report artifact</sub></td>
+  </tr>
+</table>
+
 ## What Is Public Here
 
 - real public skill packages under [`skills/`](skills/)
-- sanitized inputs, outputs, and rendered artifacts under [`examples/`](examples/) and [`docs/mobile-alpha-proof/`](docs/mobile-alpha-proof/)
+- sanitized inputs, outputs, and rendered artifacts under [`examples/`](examples/) and [`docs/mobile-proof/`](docs/mobile-proof/)
 - public QMS Lite design and migration documents under [`docs/`](docs/)
 - a minimal framework snapshot under [`framework/`](framework/) so other builders can follow the architecture without needing the full private runtime
 
@@ -51,9 +88,9 @@ Open the preview image to watch the 40-second 8D demo from the earlier Goose + M
 
 | Capability | Current working path | Public proof |
 | --- | --- | --- |
-| **8D** | strict 8D audit path, deterministic D3-D7 checks, local HTML artifact, Android-triggered proof | [good 8D HTML](docs/mobile-alpha-proof/8d-mobile-proof-good-20260316.html), [bad 8D HTML](docs/mobile-alpha-proof/8d-mobile-proof-bad-20260316.html), [good chat screenshot](docs/mobile-alpha-proof/8d-mobile-chat-proof-good-20260316.jpg), [bad chat screenshot](docs/mobile-alpha-proof/8d-mobile-chat-proof-bad-20260316.jpg) |
-| **RCA** | detective-style branch-pruning chat, strongest cause-path conclusion, local HTML artifact, Android-triggered proof | [RCA HTML](docs/mobile-alpha-proof/rca-mobile-proof-20260316.html), [start screenshot](docs/mobile-alpha-proof/rca-mobile-chat-start-20260316.jpg), [pruning screenshot](docs/mobile-alpha-proof/rca-mobile-chat-pruning-20260316.jpg), [conclusion screenshot](docs/mobile-alpha-proof/rca-mobile-chat-conclusion-20260316.jpg) |
-| **Supplier** | deterministic spreadsheet analysis, validation lock, local HTML artifact, Android-triggered proof | [supplier HTML](docs/mobile-alpha-proof/supplier-mobile-proof-20260316.html), [supplier screenshot](docs/mobile-alpha-proof/supplier-mobile-proof-20260316.jpg) |
+| **8D** | strict 8D audit path, deterministic D3-D7 checks, local HTML artifact, Android-triggered proof | [good 8D HTML](docs/mobile-proof/8d-mobile-proof-good-20260316.html), [bad 8D HTML](docs/mobile-proof/8d-mobile-proof-bad-20260316.html), [good chat screenshot](docs/mobile-proof/8d-mobile-chat-proof-good-20260316.jpg), [bad chat screenshot](docs/mobile-proof/8d-mobile-chat-proof-bad-20260316.jpg) |
+| **RCA** | detective-style branch-pruning chat, strongest cause-path conclusion, local HTML artifact, Android-triggered proof | [RCA HTML](docs/mobile-proof/rca-mobile-proof-20260316.html), [start screenshot](docs/mobile-proof/rca-mobile-chat-start-20260316.jpg), [pruning screenshot](docs/mobile-proof/rca-mobile-chat-pruning-20260316.jpg), [conclusion screenshot](docs/mobile-proof/rca-mobile-chat-conclusion-20260316.jpg) |
+| **Supplier** | deterministic spreadsheet analysis, validation lock, local HTML artifact, Android-triggered proof | [supplier HTML](docs/mobile-proof/supplier-mobile-proof-20260316.html), [supplier screenshot](docs/mobile-proof/supplier-mobile-proof-20260316.jpg) |
 | **Reporter** | deterministic markdown-to-HTML renderer used by all three flows above | [8D preview](assets/8d-rendered-report-preview.png), [RCA preview](assets/rootcause-rendered-report-preview.png) |
 
 ## Why Not Generic OpenClaw + Skills
@@ -97,23 +134,24 @@ That is why QMS Lite is a runtime profile, not only a prompt pack.
 
 ### Public design docs
 
-- [QMS Lite Overview](docs/qms-lite-overview.md)
-- [24-Hour Migration Notes](docs/qms-lite-migration-24h.md)
-- [QMS Lite Architecture](docs/qms-lite-architecture.md)
-- [QMS Lite Android Hardening](docs/qms-lite-android.md)
-- [Mobile Alpha Proof Index](docs/mobile-alpha-proof/README.md)
+- [OpenClaw Quality Edition](docs/openclaw-quality-edition.md)
+- [24-Hour OpenClaw Migration](docs/openclaw-migration-24h.md)
+- [OpenClaw Quality Architecture](docs/openclaw-quality-architecture.md)
+- [Android Secure Chat Client](docs/android-secure-chat-client.md)
+- [Mobile Proof Index](docs/mobile-proof/README.md)
+- [Project Roadmap](docs/openclaw-quality-roadmap.md)
 
 ### Public framework snapshot
 
 - [framework/README.md](framework/README.md)
-- [OpenClaw QMS local profile example](framework/openclaw-qms-lite/openclaw.qms.local.example.jsonc)
-- [Tool contract snapshot](framework/openclaw-qms-lite/tool-contracts.snapshot.ts)
-- [Bridge reference snapshot](framework/openclaw-qms-lite/qms_bridge_reference.py)
-- [qm-review workspace rules](framework/openclaw-qms-lite/qm-review.AGENTS.md)
-- [qm-rca workspace rules](framework/openclaw-qms-lite/qm-rca.AGENTS.md)
-- [Logic path summary](framework/openclaw-qms-lite/logic-paths.md)
-- [RCA detective flow](framework/openclaw-qms-lite/rca_detective_flow.md)
-- [Mobile runtime boundary](framework/openclaw-qms-lite/mobile_runtime_boundary.md)
+- [OpenClaw quality profile example](framework/openclaw-quality-edition/openclaw.qms.local.example.jsonc)
+- [Tool contract snapshot](framework/openclaw-quality-edition/tool-contracts.snapshot.ts)
+- [Bridge reference snapshot](framework/openclaw-quality-edition/qms_bridge_reference.py)
+- [qm-review workspace rules](framework/openclaw-quality-edition/qm-review.AGENTS.md)
+- [qm-rca workspace rules](framework/openclaw-quality-edition/qm-rca.AGENTS.md)
+- [Logic path summary](framework/openclaw-quality-edition/logic-paths.md)
+- [RCA detective flow](framework/openclaw-quality-edition/rca_detective_flow.md)
+- [Mobile runtime boundary](framework/openclaw-quality-edition/mobile_runtime_boundary.md)
 
 ## Earlier Public Examples
 
@@ -160,7 +198,7 @@ These remain useful as the original Goose + MCP proof layer:
 ## Contact
 
 - X: [@QForge_Builder](https://x.com/QForge_Builder)
-- Email: [zhongshunchen1982@gmail.com](mailto:zhongshunchen1982@gmail.com)
+- Email: [zhongshunchen2004@gmail.com](mailto:zhongshunchen2004@gmail.com)
 
 ## License
 

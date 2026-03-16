@@ -1,6 +1,6 @@
 # Framework Snapshot
 
-This folder is the public framework skeleton for QMS Lite.
+This folder is the public framework skeleton for the OpenClaw quality edition.
 
 It is intentionally smaller than the private working forks. The purpose is to let other builders follow the architecture and logic boundaries without exposing the entire local implementation.
 
@@ -38,9 +38,9 @@ If somebody wants to follow the build, they should be able to see:
 
 ## Files to read first
 
-- `openclaw-qms-lite/openclaw.qms.local.example.jsonc`
-- `openclaw-qms-lite/tool-contracts.snapshot.ts`
-- `openclaw-qms-lite/qms_bridge_reference.py`
-- `openclaw-qms-lite/logic-paths.md`
-- `openclaw-qms-lite/rca_detective_flow.md`
-- `openclaw-qms-lite/mobile_runtime_boundary.md`
+- `openclaw-quality-edition/openclaw.qms.local.example.jsonc`
+- `openclaw-quality-edition/tool-contracts.snapshot.ts`
+- `openclaw-quality-edition/qms_bridge_reference.py`
+- `openclaw-quality-edition/logic-paths.md`
+- `openclaw-quality-edition/rca_detective_flow.md`
+- `openclaw-quality-edition/mobile_runtime_boundary.md`

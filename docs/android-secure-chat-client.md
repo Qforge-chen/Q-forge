@@ -1,6 +1,6 @@
-# QMS Lite Android Hardening
+# Android Secure Chat Client
 
-The Android side of QMS Lite was not treated as a consumer app. It was reduced into a quality-work chat terminal.
+The Android side of the OpenClaw quality edition was not treated as a consumer app. It was reduced into a quality-work chat terminal.
 
 ## What changed
 
@@ -36,4 +36,4 @@ This repository does not publish the full Android private implementation. Instea
 - 8D mobile proof
 - RCA mobile proof
 
-See [`mobile-alpha-proof/`](mobile-alpha-proof/).
+See [`mobile-proof/`](mobile-proof/).

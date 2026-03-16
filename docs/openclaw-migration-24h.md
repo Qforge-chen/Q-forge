@@ -1,4 +1,4 @@
-# QMS Lite Migration In About 24 Hours
+# 24-Hour OpenClaw Migration
 
 This document explains what changed in the first fast migration pass from the earlier Goose + MCP runtime into the current local OpenClaw quality runtime.
 

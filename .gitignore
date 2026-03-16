@@ -31,4 +31,4 @@ output/
 # Keep README files
 !README.md
 !**/README.md
-!docs/mobile-alpha-proof/*.html
+!docs/mobile-proof/*.html

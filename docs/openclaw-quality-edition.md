@@ -1,4 +1,4 @@
-# QMS Lite Overview
+# OpenClaw Quality Edition
 
 QMS Lite is the quality-customized OpenClaw profile behind the latest Q-Forge migration pass.
 
