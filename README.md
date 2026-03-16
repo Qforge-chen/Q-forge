@@ -92,9 +92,12 @@ That is why QMS Lite is a runtime profile, not only a prompt pack.
 - [framework/README.md](framework/README.md)
 - [OpenClaw QMS local profile example](framework/openclaw-qms-lite/openclaw.qms.local.example.jsonc)
 - [Tool contract snapshot](framework/openclaw-qms-lite/tool-contracts.snapshot.ts)
+- [Bridge reference snapshot](framework/openclaw-qms-lite/qms_bridge_reference.py)
 - [qm-review workspace rules](framework/openclaw-qms-lite/qm-review.AGENTS.md)
 - [qm-rca workspace rules](framework/openclaw-qms-lite/qm-rca.AGENTS.md)
 - [Logic path summary](framework/openclaw-qms-lite/logic-paths.md)
+- [RCA detective flow](framework/openclaw-qms-lite/rca_detective_flow.md)
+- [Mobile runtime boundary](framework/openclaw-qms-lite/mobile_runtime_boundary.md)
 
 ## Earlier Public Examples
 
