@@ -4,6 +4,8 @@ Q-Forge is a quality-focused agent system for manufacturing workflows, not a gen
 
 This public repository is no longer only a proof page. It is now the public proof layer plus the migration blueprint for a local quality-specific OpenClaw runtime.
 
+> In roughly 24 hours, Q-Forge moved from an already-proven Goose + MCP setup into a local OpenClaw quality edition with Android mobile proof.
+
 ## 24-Hour Migration Result
 
 Within roughly 24 hours, the four Q-Forge capabilities that had already been proven on Goose + MCP were migrated into a local OpenClaw quality runtime and a hardened Android chat client:
@@ -19,6 +21,20 @@ The result is not a generic OpenClaw setup with extra prompts. It is a local qua
 - evidence-locked workflows
 - local artifact generation
 - mobile proof on Android
+
+### What changed in one fast migration pass
+
+- the original Goose + MCP proof stack was not discarded; it was migrated
+- the four working capability paths were re-established in a local OpenClaw quality runtime
+- Android mobile proof was completed for `Supplier`, `8D`, and `RCA`
+- the runtime was narrowed into a quality-specific profile instead of a generic assistant
+- a public framework snapshot was added so other builders can follow the logic, not just the screenshots
+
+### What this means
+
+This repository now shows one concrete thing:
+
+Q-Forge was already real before this pass, and after one focused 24-hour migration sprint it became a local OpenClaw quality edition with working mobile proof.
 
 [![8D DOCX review demo](assets/8d-docx-review-demo-cover.jpg)](assets/8d-docx-review-demo-short.mp4)
 
