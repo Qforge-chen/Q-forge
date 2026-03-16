@@ -1,12 +1,12 @@
 # Public Examples
 
-This folder contains the public proof set for the current Q-Forge Hackathon pass.
+This folder contains the public example set for the current Q-Forge release.
 
 ## Principles
 
 - Files are exported from saved local Q-Forge runs.
 - Inputs and outputs are lightly sanitized before publication.
-- The goal is fast reviewer judgment, not full product release.
+- The goal is clear public understanding, not full private runtime disclosure.
 
 ## What Is Included
 
