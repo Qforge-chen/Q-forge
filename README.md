@@ -7,7 +7,7 @@ This public repository now serves two jobs:
 - public proof that the quality workflows really run
 - public blueprint for a clean-host, no-core-patch OpenClaw QMS overlay
 
-> In roughly 24 hours, Q-Forge moved from an already-proven Goose + MCP setup into a local OpenClaw quality edition with Android mobile proof. By March 19, 2026, that migration was hardened into a validated dual-agent baseline on a clean OpenClaw host.
+> Q-Forge first proved the workflows on Goose + MCP, then rebuilt them on a clean OpenClaw host. By March 19, 2026, the result was a validated dual-agent baseline with local inference, deterministic runners, and live specialist handoff.
 
 ## Current Validated Baseline
 
@@ -22,7 +22,7 @@ The current private working baseline behind this public repo is:
 - live regression on real sessions
 - real `secretary -> qms` handoff validation
 
-This matters because the project is no longer only proving that a model can answer quality questions. It is proving that a local quality runtime can stay reviewable, testable, and upgrade-safe.
+This repository is not only proving that a model can answer quality questions. It is proving that a local quality runtime can remain reviewable, testable, and upgrade-safe without carrying private core patches.
 
 ## Proof At A Glance
 
@@ -77,17 +77,23 @@ Open the preview image to watch the 40-second 8D demo from the earlier Goose + M
 
 ## Why This Is More Than "Just Generate A Skill"
 
-Simple skills can be generated quickly. A reliable manufacturing workflow cannot stop there.
+Simple skills can be generated quickly. A reliable manufacturing workflow requires stronger guarantees.
 
-This project is building a stricter pattern:
+This repository shows a stricter pattern:
 
 - role boundaries instead of one giant assistant
 - deterministic runners instead of model-only claims
 - artifacts and audit traces instead of disappearing chat output
 - regression checks instead of trusting one lucky run
-- a clean OpenClaw host plus overlay so upgrades stay manageable
+- a clean OpenClaw host plus overlay so upstream upgrades stay manageable
 
-Today's deterministic scaffolding becomes tomorrow's reusable machine capability. The goal is not to wait for magic. The goal is to turn tested quality logic into stable building blocks.
+The public result is intentionally layered:
+
+- `q-skill-reporter` is opened as a runnable core package
+- `8D`, `Supplier`, and `Rootcause` are opened at the contract layer with schemas, synthetic fixtures, and smoke tests
+- the private overlay, live regression harness, and dense specialist logic remain outside the public repo
+
+The goal is not to rely on one lucky prompt. The goal is to turn validated quality logic into reusable engineering assets.
 
 ## Why Not Generic OpenClaw + Skills
 
@@ -101,7 +107,7 @@ Quality-specific deployment needs:
 - regression that can be rerun after host upgrades
 - role separation between coordination and deep quality work
 
-That is why this project is shaped as an overlay, not only a prompt pack.
+That is why this project is shaped as an overlay, not only a prompt pack or a collection of prompt text.
 
 ## What Is Public Here
 
