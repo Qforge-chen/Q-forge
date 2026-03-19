@@ -4,6 +4,8 @@ QMS Lite is the quality-customized OpenClaw profile behind the latest Q-Forge mi
 
 It is not a generic assistant with a few domain prompts added on top. It is a local runtime profile designed around quality work.
 
+The current direction has now hardened further into a clean-host overlay baseline. The host stays close to upstream OpenClaw, while the QMS-specific behavior lives in the overlay layer.
+
 ## Product role
 
 - quality co-pilot
@@ -17,6 +19,7 @@ It is not a generic assistant with a few domain prompts added on top. It is a lo
 - `RCA`: detective-style root cause conversation, branch pruning, and conclusion report
 - `Supplier`: spreadsheet triage with deterministic metrics
 - `Reporter`: local HTML artifact generation
+- `secretary -> qms`: front-door coordination and specialist handoff
 
 ## Why this exists
 
@@ -36,9 +39,23 @@ That means:
 
 - Android client: secure chat terminal
 - OpenClaw gateway: sessions, pairing, TLS, routing
-- QMS tools: deterministic 8D, RCA, supplier, reporter paths
+- QMS overlay: skills, deterministic runners, artifacts, audit rules, and agent boundaries
 - LM Studio: local model backend
 - local artifact root: generated HTML and audit traces
+
+## Current validated baseline
+
+The current private working baseline behind this public repo is:
+
+- clean OpenClaw host kept close to upstream
+- no OpenClaw core modifications for the QMS V1 layer
+- local LM Studio inference
+- `secretary` as the intake and coordination agent
+- `qms` as the deep quality specialist
+- live regression on real sessions
+- validated `secretary -> qms` handoff
+
+See [OpenClaw V1 Overlay Baseline](openclaw-v1-overlay-baseline.md) for the focused note on this milestone.
 
 ## Public vs private boundary
 

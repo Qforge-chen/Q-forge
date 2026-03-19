@@ -8,6 +8,8 @@ Q-Forge package for turning reasoning outputs into decision-ready HTML pages.
 - Keeps presentation consistent across different quality workflows
 - Serves as the public proof layer for readable output, not just raw text
 
+In the current internal baseline, this capability family is also carried forward inside the OpenClaw QMS overlay as the deterministic report-output layer behind the validated workflows.
+
 ## Public Proof
 
 - [8D rendered HTML](../../examples/8d/output/8d-review-rendered.html)

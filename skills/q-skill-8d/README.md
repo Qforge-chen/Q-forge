@@ -9,6 +9,8 @@ Q-Forge package for 8D report intake and audit.
 - Flags missing containment, weak root cause logic, and incomplete closure conditions
 - Produces review outputs that can be rendered into HTML
 
+In the current internal baseline, this capability family is also carried forward inside the OpenClaw QMS overlay as a skill protocol plus deterministic runner path.
+
 ## Public Proof
 
 - [Good input sample](../../examples/8d/input/8d-case-good.docx)

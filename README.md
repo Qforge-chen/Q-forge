@@ -2,52 +2,27 @@
 
 Q-Forge is a quality-focused agent system for manufacturing workflows, not a generic chatbot.
 
-This public repository is no longer only a proof page. It is now the public proof layer plus the migration blueprint for a local quality-specific OpenClaw runtime.
+This public repository now serves two jobs:
 
-> In roughly 24 hours, Q-Forge moved from an already-proven Goose + MCP setup into a local OpenClaw quality edition with Android mobile proof.
+- public proof that the quality workflows really run
+- public blueprint for a clean-host, no-core-patch OpenClaw QMS overlay
 
-## 24-Hour Migration Result
+> In roughly 24 hours, Q-Forge moved from an already-proven Goose + MCP setup into a local OpenClaw quality edition with Android mobile proof. By March 19, 2026, that migration was hardened into a validated dual-agent baseline on a clean OpenClaw host.
 
-Within roughly 24 hours, the four Q-Forge capabilities that had already been proven on Goose + MCP were migrated into a local OpenClaw quality runtime and a hardened Android chat client:
+## Current Validated Baseline
 
-- `8D`
-- `RCA`
-- `Supplier`
-- `Reporter`
+The current private working baseline behind this public repo is:
 
-The result is not a generic OpenClaw setup with extra prompts. It is a local quality runtime profile with:
+- clean OpenClaw host kept close to upstream
+- no OpenClaw core modifications required for QMS V1
+- local LM Studio backend
+- `secretary` as the front door and `qms` as the specialist
+- skillized QMS protocol instead of free-form prompting
+- deterministic runners for `8D`, `RCA`, `Supplier`, and `Reporter`
+- live regression on real sessions
+- real `secretary -> qms` handoff validation
 
-- deterministic tool paths
-- evidence-locked workflows
-- local artifact generation
-- mobile proof on Android
-
-### What changed in one fast migration pass
-
-- the original Goose + MCP proof stack was not discarded; it was migrated
-- the four working capability paths were re-established in a local OpenClaw quality runtime
-- Android mobile proof was completed for `Supplier`, `8D`, and `RCA`
-- the runtime was narrowed into a quality-specific profile instead of a generic assistant
-- a public framework snapshot was added so other builders can follow the logic, not just the screenshots
-
-### What this means
-
-This repository now shows one concrete thing:
-
-Q-Forge was already real before this pass, and after one focused 24-hour migration sprint it became a local OpenClaw quality edition with working mobile proof.
-
-### Direct Running Proof
-
-This repository contains direct running proof, not only design notes.
-
-- the workflows shown here were executed end to end
-- the proof set includes real local HTML artifacts
-- the proof set includes real Android chat screenshots
-- the public examples, rendered outputs, and mobile traces all come from actual runs
-
-[![8D DOCX review demo](assets/8d-docx-review-demo-cover.jpg)](assets/8d-docx-review-demo-short.mp4)
-
-Open the preview image to watch the 40-second 8D demo from the earlier Goose + MCP phase.
+This matters because the project is no longer only proving that a model can answer quality questions. It is proving that a local quality runtime can stay reviewable, testable, and upgrade-safe.
 
 ## Proof At A Glance
 
@@ -86,21 +61,33 @@ Open the preview image to watch the 40-second 8D demo from the earlier Goose + M
   </tr>
 </table>
 
-## What Is Public Here
+[![8D DOCX review demo](assets/8d-docx-review-demo-cover.jpg)](assets/8d-docx-review-demo-short.mp4)
 
-- real public skill packages under [`skills/`](skills/)
-- sanitized inputs, outputs, and rendered artifacts under [`examples/`](examples/) and [`docs/mobile-proof/`](docs/mobile-proof/)
-- public QMS Lite design and migration documents under [`docs/`](docs/)
-- a minimal framework snapshot under [`framework/`](framework/) so other builders can follow the architecture without needing the full private runtime
+Open the preview image to watch the 40-second 8D demo from the earlier Goose + MCP proof phase.
 
 ## Already Working Now
 
 | Capability | Current working path | Public proof |
 | --- | --- | --- |
-| **8D** | strict 8D audit path, deterministic D3-D7 checks, local HTML artifact, Android-triggered proof | [good 8D HTML](docs/mobile-proof/8d-mobile-proof-good-20260316.html), [bad 8D HTML](docs/mobile-proof/8d-mobile-proof-bad-20260316.html), [good chat screenshot](docs/mobile-proof/8d-mobile-chat-proof-good-20260316.jpg), [bad chat screenshot](docs/mobile-proof/8d-mobile-chat-proof-bad-20260316.jpg) |
-| **RCA** | detective-style branch-pruning chat, strongest cause-path conclusion, local HTML artifact, Android-triggered proof | [RCA HTML](docs/mobile-proof/rca-mobile-proof-20260316.html), [start screenshot](docs/mobile-proof/rca-mobile-chat-start-20260316.jpg), [pruning screenshot](docs/mobile-proof/rca-mobile-chat-pruning-20260316.jpg), [conclusion screenshot](docs/mobile-proof/rca-mobile-chat-conclusion-20260316.jpg) |
-| **Supplier** | deterministic spreadsheet analysis, validation lock, local HTML artifact, Android-triggered proof | [supplier HTML](docs/mobile-proof/supplier-mobile-proof-20260316.html), [supplier screenshot](docs/mobile-proof/supplier-mobile-proof-20260316.jpg) |
+| **8D** | strict 8D audit path, deterministic D3-D7 checks, local HTML artifact, live regression, Android-triggered proof | [good 8D HTML](docs/mobile-proof/8d-mobile-proof-good-20260316.html), [bad 8D HTML](docs/mobile-proof/8d-mobile-proof-bad-20260316.html), [good chat screenshot](docs/mobile-proof/8d-mobile-chat-proof-good-20260316.jpg), [bad chat screenshot](docs/mobile-proof/8d-mobile-chat-proof-bad-20260316.jpg) |
+| **RCA** | detective-style branch-pruning chat, evidence-chain discipline, local HTML artifact, live regression, Android-triggered proof | [RCA HTML](docs/mobile-proof/rca-mobile-proof-20260316.html), [start screenshot](docs/mobile-proof/rca-mobile-chat-start-20260316.jpg), [pruning screenshot](docs/mobile-proof/rca-mobile-chat-pruning-20260316.jpg), [conclusion screenshot](docs/mobile-proof/rca-mobile-chat-conclusion-20260316.jpg) |
+| **Supplier** | deterministic spreadsheet analysis, validation lock, local HTML artifact, live regression, Android-triggered proof | [supplier HTML](docs/mobile-proof/supplier-mobile-proof-20260316.html), [supplier screenshot](docs/mobile-proof/supplier-mobile-proof-20260316.jpg) |
 | **Reporter** | deterministic markdown-to-HTML renderer used by all three flows above | [8D preview](assets/8d-rendered-report-preview.png), [RCA preview](assets/rootcause-rendered-report-preview.png) |
+| **Secretary -> QMS** | front-door intake, specialist handoff, artifact-aware return path | [overlay baseline note](docs/openclaw-v1-overlay-baseline.md) |
+
+## Why This Is More Than "Just Generate A Skill"
+
+Simple skills can be generated quickly. A reliable manufacturing workflow cannot stop there.
+
+This project is building a stricter pattern:
+
+- role boundaries instead of one giant assistant
+- deterministic runners instead of model-only claims
+- artifacts and audit traces instead of disappearing chat output
+- regression checks instead of trusting one lucky run
+- a clean OpenClaw host plus overlay so upgrades stay manageable
+
+Today's deterministic scaffolding becomes tomorrow's reusable machine capability. The goal is not to wait for magic. The goal is to turn tested quality logic into stable building blocks.
 
 ## Why Not Generic OpenClaw + Skills
 
@@ -109,40 +96,25 @@ Generic OpenClaw plus skills can add knowledge, but it does not automatically so
 Quality-specific deployment needs:
 
 - local data handling instead of casual cloud routing
-- a reduced-permission mobile channel
 - deterministic tool boundaries
-- separate stable knowledge and daily work inputs
-- logic-locked review paths instead of free-form model output
-- rendered artifacts that can be reviewed and audited later
+- artifacts that can be reviewed later
+- regression that can be rerun after host upgrades
+- role separation between coordination and deep quality work
 
-That is why QMS Lite is a runtime profile, not only a prompt pack.
+That is why this project is shaped as an overlay, not only a prompt pack.
 
-## What Was Customized
+## What Is Public Here
 
-### OpenClaw local quality edition
-
-- OpenClaw was reduced into a QMS Lite runtime profile
-- the local gateway was kept, but the work was narrowed to quality workflows
-- `qm-review` and `qm-rca` were turned into skill-driven agents instead of generic assistants
-- `8D`, `RCA`, `Supplier`, and `Reporter` were wired into deterministic local tool paths
-- local data was split into:
-  - `knowledge-base`
-  - `work-inbox`
-  - `artifacts`
-  - `audit`
-
-### Android secure chat edition
-
-- the Android client was reduced from a general assistant into a secure chat terminal
-- Firebase and update checks were removed
-- cleartext traffic was disabled
-- `FLAG_SECURE` and gateway-only behavior were enforced during the hardening pass
-- the phone proof shown here was produced against the local OpenClaw QMS Lite gateway, not against a cloud runtime
+- public skill packages under [`skills/`](skills/)
+- sanitized inputs, outputs, and rendered artifacts under [`examples/`](examples/) and [`docs/mobile-proof/`](docs/mobile-proof/)
+- public design and migration documents under [`docs/`](docs/)
+- a minimal framework snapshot under [`framework/`](framework/) so other builders can follow the architecture without needing the full private runtime
 
 ## Follow The Build
 
 ### Public design docs
 
+- [OpenClaw V1 Overlay Baseline](docs/openclaw-v1-overlay-baseline.md)
 - [OpenClaw Quality Edition](docs/openclaw-quality-edition.md)
 - [24-Hour OpenClaw Migration](docs/openclaw-migration-24h.md)
 - [OpenClaw Quality Architecture](docs/openclaw-quality-architecture.md)
@@ -173,28 +145,20 @@ These remain useful as the original Goose + MCP proof layer:
 - [RCA legacy markdown](examples/rootcause/output/rootcause-pm-ring.md)
 - [RCA legacy rendered HTML](examples/rootcause/output/rootcause-pm-ring.html)
 
-## Builder Update
-
-- Q-Forge had already been proven on Goose + MCP before this migration pass started.
-- The practical thesis was already validated: large models plus deterministic rules can produce useful quality outcomes.
-- The current direction is now clearer: a local OpenClaw quality runtime plus Q-Forge-style skills is a better long-term base than staying on the old runtime.
-- This repository now shows both:
-  - what had already worked
-  - how that working logic was migrated into a local OpenClaw quality edition
-
 ## Repository Layout
 
 - `skills/`: public skill packages
-- `examples/`: sanitized source examples from the earlier public proof layer
+- `examples/`: sanitized source examples from the public proof layer
 - `assets/`: demo media and report previews
-- `docs/`: public migration, architecture, and proof documents
-- `framework/`: minimal public code and config skeleton for QMS Lite
+- `docs/`: public migration, architecture, and validated-baseline documents
+- `framework/`: minimal public code and config skeleton for the quality runtime
 
 ## Scope Note
 
 - Included here:
   - proof artifacts
   - migration explanation
+  - validated-baseline explanation
   - framework skeleton
   - public skill packages
 - Intentionally excluded:

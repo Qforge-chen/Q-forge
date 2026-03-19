@@ -30,6 +30,9 @@ The immediate goal is not a full product release. It is a compact public enginee
 
 ## Next After Submission
 
+- Add a clearer public installation and update story around the clean-host overlay
+- Publish a public note for the `secretary -> qms` handoff model
 - Expand supplier public examples
-- Add a cleaner public installation story around the local host runtime
 - Publish more cross-skill evidence without exposing private working memory
+- Add channel-layer proof such as Feishu or other secure messaging entry points
+- Add tighter sandbox notes for the quality runtime boundary
