@@ -36,6 +36,7 @@ q-skill-reporter render-markdown --input fixtures/sample-report.md --output exam
 - [8D preview image](../../assets/8d-rendered-report-preview.png)
 - [RCA rendered HTML](../../examples/rootcause/output/rootcause-pm-ring.html)
 - [RCA preview image](../../assets/rootcause-rendered-report-preview.png)
+- [Reporter sample output](examples/sample-report.html)
 
 ## Package Layout
 

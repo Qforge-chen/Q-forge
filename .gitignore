@@ -32,3 +32,4 @@ output/
 !README.md
 !**/README.md
 !docs/mobile-proof/*.html
+!skills/q-skill-reporter/examples/*.html
