@@ -115,6 +115,7 @@ That is why this project is shaped as an overlay, not only a prompt pack.
 ### Public design docs
 
 - [OpenClaw V1 Overlay Baseline](docs/openclaw-v1-overlay-baseline.md)
+- [Public Skill Open Tiers](docs/public-skill-open-tiers.md)
 - [OpenClaw Quality Edition](docs/openclaw-quality-edition.md)
 - [24-Hour OpenClaw Migration](docs/openclaw-migration-24h.md)
 - [OpenClaw Quality Architecture](docs/openclaw-quality-architecture.md)

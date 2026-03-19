@@ -1,0 +1,19 @@
+{
+  "overall": {
+    "pass_rate": 91.7,
+    "ppm": 83000
+  },
+  "supplier_ranking": [
+    {
+      "supplier": "Gamma Components",
+      "pass_rate": 77.08,
+      "status": "critical"
+    },
+    {
+      "supplier": "Alpha Electronics",
+      "pass_rate": 97.94,
+      "status": "stable"
+    }
+  ],
+  "warning_suppliers": ["Gamma Components"]
+}

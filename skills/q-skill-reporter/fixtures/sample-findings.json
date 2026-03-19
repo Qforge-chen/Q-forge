@@ -1,0 +1,45 @@
+{
+  "title": "Q-Forge Supplier Findings",
+  "summary": "Synthetic sample used to demonstrate the reporter core without exposing private runtime artifacts.",
+  "metadata": {
+    "case_id": "supplier-demo-public",
+    "source": "synthetic-fixture",
+    "tier": "full"
+  },
+  "sections": [
+    {
+      "title": "Overview",
+      "body": "This public fixture shows how structured quality findings can be turned into a reviewable HTML artifact.",
+      "bullets": [
+        "No private runtime path is required",
+        "The output should stay deterministic",
+        "The report should remain readable by non-engineers"
+      ]
+    },
+    {
+      "title": "Ranking Snapshot",
+      "body": "A minimal table is enough to demonstrate the rendering contract.",
+      "table": {
+        "headers": ["Supplier", "Pass Rate", "Status"],
+        "rows": [
+          ["Alpha Electronics", "97.94%", "stable"],
+          ["Gamma Components", "77.08%", "critical"]
+        ]
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-001",
+      "severity": "critical",
+      "title": "One supplier remains below the gate",
+      "detail": "Gamma Components stays far below the pack and requires containment before routine approval."
+    },
+    {
+      "id": "F-002",
+      "severity": "info",
+      "title": "Output structure is suitable for public proof",
+      "detail": "This synthetic fixture keeps the report reviewable without leaking customer data."
+    }
+  ]
+}

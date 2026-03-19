@@ -1,15 +1,22 @@
 [project]
 name = "q-skill-reporter"
 version = "0.1.0"
-description = "Q-Forge Report Generator - Convert Markdown to Professional HTML"
+description = "Q-Forge reporter core for rendering reviewable HTML artifacts"
+readme = "README.md"
+requires-python = ">=3.10"
 dependencies = [
-    "mcp>=0.1.0",
     "markdown>=3.5"
 ]
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.0.0"]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project.scripts]
-q-skill-reporter = "q_skill_reporter:main"
+q-skill-reporter = "q_skill_reporter.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/q_skill_reporter"]

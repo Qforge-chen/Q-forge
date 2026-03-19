@@ -1,14 +1,34 @@
 # q-skill-reporter
 
-Q-Forge package for turning reasoning outputs into decision-ready HTML pages.
+**Open Tier: full**
+
+Q-Forge package for turning validated quality outputs into reviewable HTML artifacts.
+
+## What Is Public In This Package
+
+This package is intentionally published as a runnable core layer:
+
+- CLI entrypoint
+- reusable Python rendering library
+- schemas for structured findings input
+- fixtures and example outputs
+- tests for rendering and CLI smoke
+
+The primary public entry is the core renderer. The MCP wrapper is optional and not the main open-source surface.
 
 ## What It Does
 
-- Renders markdown and structured findings into styled HTML reports
-- Keeps presentation consistent across different quality workflows
-- Serves as the public proof layer for readable output, not just raw text
+- Renders markdown into a polished HTML report
+- Renders structured findings JSON into a decision-ready HTML artifact
+- Keeps report output deterministic and reviewable
+- Avoids private runtime paths and customer-specific styling
 
-In the current internal baseline, this capability family is also carried forward inside the OpenClaw QMS overlay as the deterministic report-output layer behind the validated workflows.
+## Quick Start
+
+```bash
+pip install -e .
+q-skill-reporter render-markdown --input fixtures/sample-report.md --output examples/sample-report.html --title "Q-Forge Sample Report"
+```
 
 ## Public Proof
 
@@ -17,8 +37,24 @@ In the current internal baseline, this capability family is also carried forward
 - [RCA rendered HTML](../../examples/rootcause/output/rootcause-pm-ring.html)
 - [RCA preview image](../../assets/rootcause-rendered-report-preview.png)
 
-## Install
+## Package Layout
 
-```bash
-pip install -e .
-```
+- `src/q_skill_reporter/`: reusable renderer core and CLI
+- `schemas/`: public structured input contract
+- `fixtures/`: synthetic inputs for smoke and regression checks
+- `tests/`: runnable package tests
+- `examples/`: generated sample outputs that are safe to publish
+
+## Boundary
+
+Included here:
+
+- renderer core
+- stable output template
+- example artifacts
+
+Not included here:
+
+- private runtime paths
+- private QMS overlay logic
+- private customer branding or style packs

@@ -1,0 +1,13 @@
+{
+  "case_id": "public-rootcause-ring",
+  "lead_hypothesis": "Compaction overpressure likely created upstream structural weakness later exposed in sizing and assembly.",
+  "verdict": "UNVERIFIED",
+  "evidence_gaps": [
+    "No destructive cross-section has confirmed the initiating mechanism.",
+    "The evidence chain remains suggestive rather than closed."
+  ],
+  "next_evidence": [
+    "Cross-section the damaged ring samples.",
+    "Compare compaction settings against the affected build window."
+  ]
+}

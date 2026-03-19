@@ -1,8 +1,10 @@
-from .server import mcp
+from .cli import main
+from .core import render_findings, render_findings_file, render_markdown, render_markdown_file
 
-def main():
-    """Main entry point for the package."""
-    mcp.run(transport='stdio')
-
-if __name__ == "__main__":
-    main()
+__all__ = [
+    "main",
+    "render_findings",
+    "render_findings_file",
+    "render_markdown",
+    "render_markdown_file",
+]

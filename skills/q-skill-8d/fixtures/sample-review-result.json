@@ -1,0 +1,13 @@
+{
+  "case_id": "public-8d-bad-sample",
+  "alignment_status": "ALIGNMENT_NEEDED",
+  "overall_decision": "ALIGNMENT_NEEDED",
+  "blocked_sections": ["D3", "D4", "D5", "D6"],
+  "findings": [
+    {
+      "severity": "critical",
+      "title": "Containment section is incomplete",
+      "detail": "The public sample mirrors the blocked-section pattern without exposing private audit language."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Q-Forge RCA Evidence Chain",
+  "type": "object",
+  "required": ["case_id", "lead_hypothesis", "verdict", "evidence_gaps"],
+  "properties": {
+    "case_id": { "type": "string" },
+    "lead_hypothesis": { "type": "string" },
+    "verdict": { "type": "string" },
+    "evidence_gaps": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_evidence": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

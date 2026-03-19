@@ -1,5 +1,7 @@
 # q-skill-supplier
 
+**Open Tier: lite-core**
+
 Q-Forge package for IQC and supplier quality monitoring.
 
 ## What It Does
@@ -9,6 +11,13 @@ Q-Forge package for IQC and supplier quality monitoring.
 - Supports supplier-facing quality monitoring workflows
 
 In the current internal baseline, this capability family is also carried forward inside the OpenClaw QMS overlay as a deterministic skill protocol plus runner path.
+
+This public package stays at the lite-core layer for now:
+
+- public analysis schema
+- synthetic summary fixture
+- smoke-level contract test
+- existing public MCP-era code preserved for reference
 
 ## Public Proof And Position In This Pass
 
@@ -20,6 +29,12 @@ Public proof currently includes:
 - [Supplier mobile screenshot](../../docs/mobile-proof/supplier-mobile-proof-20260316.jpg)
 
 The public repo is still visually centered on the 8D and RCA proof chains first, but supplier is no longer only a future promise.
+
+## Public Structure In This Pass
+
+- `schemas/`: public supplier-analysis contract
+- `fixtures/`: synthetic public summary fixture
+- `tests/`: smoke checks for the public contract layer
 
 ## Install
 

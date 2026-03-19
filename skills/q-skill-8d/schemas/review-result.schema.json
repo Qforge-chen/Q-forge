@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Q-Forge 8D Review Result",
+  "type": "object",
+  "required": ["case_id", "alignment_status", "overall_decision", "blocked_sections", "findings"],
+  "properties": {
+    "case_id": { "type": "string" },
+    "alignment_status": { "type": "string" },
+    "overall_decision": { "type": "string" },
+    "blocked_sections": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "detail"],
+        "properties": {
+          "severity": { "type": "string" },
+          "title": { "type": "string" },
+          "detail": { "type": "string" }
+        }
+      }
+    }
+  }
+}

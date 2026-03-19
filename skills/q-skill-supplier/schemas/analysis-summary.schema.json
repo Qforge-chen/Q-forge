@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Q-Forge Supplier Analysis Summary",
+  "type": "object",
+  "required": ["overall", "supplier_ranking", "warning_suppliers"],
+  "properties": {
+    "overall": {
+      "type": "object",
+      "required": ["pass_rate", "ppm"],
+      "properties": {
+        "pass_rate": { "type": "number" },
+        "ppm": { "type": "number" }
+      }
+    },
+    "supplier_ranking": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["supplier", "pass_rate", "status"],
+        "properties": {
+          "supplier": { "type": "string" },
+          "pass_rate": { "type": "number" },
+          "status": { "type": "string" }
+        }
+      }
+    },
+    "warning_suppliers": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}
